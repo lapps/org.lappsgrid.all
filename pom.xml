@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.lappsgrid.maven</groupId>
+        <artifactId>war-parent-pom</artifactId>
+        <version>2.0.1</version>
+    </parent>
+    <groupId>org.lappsgrid</groupId>
+    <artifactId>all</artifactId>
+    <version>2.0.1</version>
+    <name>Lappsgrid All</name>
+    <description>Uber jar containing all LAPPS modules.</description>
+    <packaging>jar</packaging>
+
+    <properties>
+        <api>2.0.0</api>
+        <discriminator>2.0.1</discriminator>
+        <core>2.0.0</core>
+        <client>2.0.0</client>
+        <vocabulary>2.0.0</vocabulary>
+        <serialization>2.0.0</serialization>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.4</version>
+                <executions>
+                    <execution>
+                        <id>assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <finalName>org.lappsgrid.all-${project.version}</finalName>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <appendAssemblyId>false</appendAssemblyId>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <dependencies>
+        <dependency>
+            <groupId>org.lappsgrid</groupId>
+            <artifactId>api</artifactId>
+            <version>${api}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lappsgrid</groupId>
+            <artifactId>core</artifactId>
+            <version>${core}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lappsgrid</groupId>
+            <artifactId>client</artifactId>
+            <version>${client}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lappsgrid</groupId>
+            <artifactId>serialization</artifactId>
+            <version>${serialization}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lappsgrid</groupId>
+            <artifactId>discriminator</artifactId>
+            <version>${discriminator}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lappsgrid</groupId>
+            <artifactId>vocabulary</artifactId>
+            <version>${vocabulary}</version>
+        </dependency>
+    </dependencies>
+</project>
