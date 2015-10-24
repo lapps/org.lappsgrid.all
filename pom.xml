@@ -10,22 +10,23 @@
     </parent>
     <groupId>org.lappsgrid</groupId>
     <artifactId>all</artifactId>
-    <version>2.0.4</version>
+    <version>2.1.0</version>
     <name>Lappsgrid All</name>
-    <description>Uber jar containing all LAPPS modules.</description>
+    <description>A pom the depends on all LAPPS Grid modules.</description>
     <packaging>jar</packaging>
 
     <properties>
         <api>2.0.0</api>
-        <discriminator>2.0.2</discriminator>
+        <discriminator>2.1.0</discriminator>
         <core>2.0.0</core>
-        <client>2.0.1</client>
-        <vocabulary>2.0.0</vocabulary>
+        <client>2.0.2</client>
+        <vocabulary>2.1.0</vocabulary>
         <serialization>2.0.1</serialization>
         <metadata>1.0.4</metadata>
-        <annotations>1.0.1</annotations>
+        <annotations>1.0.2</annotations>
     </properties>
 
+    <!--
     <build>
         <plugins>
             <plugin>
@@ -51,6 +52,7 @@
             </plugin>
         </plugins>
     </build>
+    -->
     <dependencies>
         <dependency>
             <groupId>org.lappsgrid</groupId>
