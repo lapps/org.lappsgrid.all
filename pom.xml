@@ -6,33 +6,48 @@
     <parent>
         <groupId>org.lappsgrid.maven</groupId>
         <artifactId>war-parent-pom</artifactId>
-        <version>2.0.4</version>
+        <version>2.0.5</version>
     </parent>
     <groupId>org.lappsgrid</groupId>
     <artifactId>all</artifactId>
-    <version>2.2.0</version>
+    <version>2.3.1</version>
     <name>Lappsgrid All</name>
     <description>A pom the depends on all LAPPS Grid modules.</description>
     <packaging>jar</packaging>
+    <url>https://github.com/lapps/org.lappsgrid.all</url>
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+    <scm>
+        <url>https://github.com/lapps/org.lappsgrid.all</url>
+        <connection>scm:git:https://github.com/lapps/org.lappsgrid.all.git</connection>
+        <developerConnection>scm:git:https://github.com/lapps/org.lappsgrid.all.git</developerConnection>
+    </scm>
+    <issueManagement>
+        <url>https://github.com/lapps/org.lappsgrid.all/issues</url>
+        <system>GitHub issues</system>
+    </issueManagement>
 
     <properties>
-        <api>2.0.0</api>
-        <discriminator>2.1.0</discriminator>
-        <core>2.0.0</core>
-        <client>2.0.2</client>
-        <vocabulary>2.1.1</vocabulary>
-        <serialization>2.1.0</serialization>
-        <metadata>1.0.4</metadata>
-        <annotations>1.0.2</annotations>
+        <api>2.0.1</api>
+        <discriminator>2.2.1</discriminator>
+        <core>2.0.2</core>
+        <client>2.0.3</client>
+        <vocabulary>2.2.0</vocabulary>
+        <serialization>2.2.0</serialization>
+        <metadata>1.0.5</metadata>
+        <annotations>1.0.3</annotations>
     </properties>
 
-    <!--
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.4</version>
+                <version>2.6</version>
                 <executions>
                     <execution>
                         <id>assembly</id>
@@ -50,9 +65,78 @@
                     <appendAssemblyId>false</appendAssemblyId>
                 </configuration>
             </plugin>
+            <plugin>
+              <artifactId>maven-javadoc-plugin</artifactId>
+              <version>2.7</version>
+                <executions>
+                  <execution>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>jar</goal>
+                    </goals>
+                    <configuration>
+                        <additionalparam>-Xdoclint:none</additionalparam>
+                      <includeDependencySources>true</includeDependencySources>
+                      <dependencySourceIncludes>
+                        <dependencySourceInclude>org.lappsgrid:*</dependencySourceInclude>
+                      </dependencySourceIncludes>
+                        <dependencySourceExcludes>
+                            <dependencySourceExclude>annotations</dependencySourceExclude>
+                        </dependencySourceExcludes>
+                    </configuration>
+                  </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.10</version>
+                <executions>
+                    <execution>
+                        <id>src-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <!-- use copy-dependencies instead if you don't want to explode the sources -->
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <classifier>sources</classifier>
+                            <failOnMissingClassifierArtifact>false</failOnMissingClassifierArtifact>
+                            <outputDirectory>${project.build.directory}/sources</outputDirectory>
+                            <includeGroupIds>org.lappsgrid</includeGroupIds>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.7</version>
+                <executions>
+                    <execution>
+                        <id>attach-source-jar</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>attach-artifact</goal>
+                        </goals>
+                        <configuration>
+                            <artifacts>
+                                <artifact>
+                                    <file>${project.build.directory}/${project.build.finalName}-sources.jar</file>
+                                    <type>jar</type>
+                                    <classifier>sources</classifier>
+                                </artifact>
+                                <artifact>
+                                    <file>${project.build.directory}/${project.build.finalName}-sources.jar.asc</file>
+                                    <type>asc</type>
+                                </artifact>
+                            </artifacts>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
-    -->
     <dependencies>
         <dependency>
             <groupId>org.lappsgrid</groupId>
