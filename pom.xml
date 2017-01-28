@@ -33,13 +33,13 @@
 
     <properties>
         <api>2.0.1</api>
-        <discriminator>2.2.1</discriminator>
+        <discriminator>2.3.0</discriminator>
         <core>2.0.2</core>
         <client>2.0.3</client>
-        <vocabulary>2.2.0</vocabulary>
-        <serialization>2.2.0</serialization>
-        <metadata>1.0.5</metadata>
-        <annotations>1.0.3</annotations>
+        <vocabulary>2.3.0</vocabulary>
+        <serialization>2.3.1</serialization>
+        <metadata>1.1.0</metadata>
+        <annotations>1.1.0</annotations>
     </properties>
 
     <build>
