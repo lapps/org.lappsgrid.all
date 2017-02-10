@@ -22,7 +22,7 @@ while [ -n "$1" ] ; do
 	shift
 done
 
-if [ $SNAPSHOT=0 ] ; then
+if [ $SNAPSHOT -eq 0 ] ; then
 	#$HOME/bin/pom
 	#if [ $? -eq 1 ] ; then exit 1 ; fi
 	isrelease || {
