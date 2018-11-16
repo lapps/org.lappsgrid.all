@@ -1,5 +1,3 @@
-import groovy.xml.XmlUtil
-
 /*
  * Copyright (C) 2018 The Language Applications Grid
  *
@@ -16,25 +14,33 @@ import groovy.xml.XmlUtil
  *
  */
 
+import groovy.xml.XmlUtil
 
+/**
+ * Use the UpdateVersions program to update module versions in the pom.xml file.
+ * This program will:
+ * 1. Iterate over each module listed in the <properties/> element
+ * 2. Parse the pom for each module found and extract the version number
+ * 3. Update the version of the module property
+ * 4. Create a timestamped backup of the current pom.xml
+ * 5. Write the updated pom.xml
+ */
 class UpdateVersions {
 
     private XmlParser parser = new XmlParser()
 
     void run() {
-        File cwd = new File(".")
         File parent = new File ("../")
-        if (parent == null) {
+        if (parent == null || !parent.exists()) {
             println "Can not get parent directory."
             return
         }
-        XmlParser parser = new XmlParser();
+
         File pom = new File("pom.xml")
         Node project = parser.parse(pom);
         project.properties.each { prop ->
             println prop.name().localPart
             prop.each {
-                //println "${it.name().localPart} ${it.text()}"
                 String module = it.name().localPart
                 File directory = new File(parent, "org.lappsgrid." + module)
                 File modulePom = new File(directory, "pom.xml")
@@ -43,22 +49,27 @@ class UpdateVersions {
                 }
                 else {
                     String version = getVersion(modulePom)
-                    println "$module $version"
+                    println "Updating $module to $version"
                     it.value = version
                 }
             }
         }
-        XmlUtil.serialize(project, System.out)
-        //QName name = (QName) props.name()
-//        println name.localName()
-//        project.properties { Node prop ->
-//            println prop.name().toString()
-//            println prop.value().toString()
-//            println()
-//        }
-//        File parent = new File().getParentFile();
+        // Create a backup of the current pom
+        new File(timestamp() + "-pom.xml").text = pom.text
+
+        // Write the new pom
+        FileOutputStream out = new FileOutputStream(pom)
+        XmlUtil.serialize(project, out)
+        out.flush()
+        out.close()
+
     }
 
+    protected String timestamp() {
+        return new Date().format("yyyy-MM-dd-HH-mm")
+    }
+
+    // Parse the version from a pom.xml file.
     protected String getVersion(File file) {
         Node project = parser.parse(file)
         return project.version.text()
